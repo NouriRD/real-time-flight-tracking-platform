@@ -1,0 +1,10 @@
+bundle:
+  name: real-time-flight-tracking-platform
+
+include:
+  - databricks/resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
