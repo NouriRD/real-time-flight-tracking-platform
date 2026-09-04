@@ -8,7 +8,7 @@ silver_df = spark.read.table(
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC **Metrics**
+# MAGIC **Flight Metrics**
 
 # COMMAND ----------
 
@@ -23,13 +23,41 @@ metrics_df = (
         "origin_country"
     )
     .agg(
-        F.count("*").alias("total_observations"),
-        F.countDistinct("icao24").alias("active_aircraft"),
-        F.round(F.avg("baro_altitude"), 2).alias("avg_baro_altitude"),
-        F.round(F.avg("geo_altitude"), 2).alias("avg_geo_altitude"),
-        F.round(F.avg("velocity"), 2).alias("avg_velocity")
+        F.count("*").alias(
+            "total_observations"
+        ),
+
+        F.countDistinct("icao24").alias(
+            "active_aircraft"
+        ),
+
+        F.round(
+            F.avg("baro_altitude"),
+            2
+        ).alias(
+            "avg_baro_altitude"
+        ),
+
+        F.round(
+            F.avg("geo_altitude"),
+            2
+        ).alias(
+            "avg_geo_altitude"
+        ),
+
+        F.round(
+            F.avg("velocity"),
+            2
+        ).alias(
+            "avg_velocity"
+        )
     )
 )
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC **Write Gold Metrics**
 
 # COMMAND ----------
 
@@ -48,22 +76,3 @@ metrics_df.write \
 # MAGIC FROM flight_streaming.gold.flight_metrics
 # MAGIC ORDER BY event_date DESC, active_aircraft DESC
 # MAGIC LIMIT 20;
-
-# COMMAND ----------
-
-
-
-# COMMAND ----------
-
-
-
-# COMMAND ----------
-
-
-
-# COMMAND ----------
-
-
-
-# COMMAND ----------
-

@@ -8,7 +8,7 @@ silver_df = spark.readStream.table(
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC **Select Gold columns**
+# MAGIC **Build Flight Positions Fact**
 
 # COMMAND ----------
 
@@ -16,8 +16,6 @@ gold_positions_df = (
     silver_df
     .select(
         "icao24",
-        "callsign",
-        "origin_country",
         "event_timestamp",
         "latitude",
         "longitude",
@@ -33,7 +31,7 @@ gold_positions_df = (
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC **Write Gold**
+# MAGIC **Write Gold Fact**
 
 # COMMAND ----------
 
@@ -72,6 +70,3 @@ gold_query.awaitTermination()
 # MAGIC FROM flight_streaming.gold.flight_positions
 # MAGIC ORDER BY event_timestamp DESC
 # MAGIC LIMIT 20;
-
-# COMMAND ----------
-
