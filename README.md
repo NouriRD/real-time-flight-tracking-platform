@@ -8,6 +8,8 @@ The platform ingests aircraft position events, processes them through a **Medall
 
 ## 🏗️ Architecture
 
+![Real-Time Flight Tracking Platform Architecture](docs/architecture.png)
+
 ```mermaid
 flowchart LR
 
